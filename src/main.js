@@ -1,4 +1,13 @@
 const moviesList = document.getElementById('movies');
+const movieInput = document.getElementById('search');
+
+const testing_search = '/star_wars.json';
+const testing_movie = '/new_hope.json';
+
+// const testing_search = null;
+// const testing_movie = null;
+
+movieInput.addEventListener('keyup', search);
 
 function showMovies(movies) {
   console.log(movies);
@@ -16,15 +25,35 @@ function showMovies(movies) {
     .join('');
 }
 
+function getURL(name, value) {
+  let url = new URL('http://www.omdbapi.com');
+  let params = new URLSearchParams();
+  params.append('apikey', 'ae7826ed');
+  params.append(name, value);
+  url.search = params;
+  return url.href;
+}
+
 function getMovies(search = 'star wars') {
-  fetch('/star_wars.json')
+  let url = getURL('s', search);
+  fetch(testing_search || url)
     .then(response => response.json())
     .then(movies => {
-      let descriptions = movies.Search
-        .map(movie => movie.imdbID)
-        .map(id => fetch('/new_hope.json').then(response => response.json()));
-      Promise.all(descriptions).then(descriptions => showMovies(descriptions));      
+      let descriptions = movies.Search.map(movie => movie.imdbID).map(id => {
+        let url = getURL('i', id);
+        console.log(url);
+        return fetch(testing_movie || url).then(response => response.json());
+      });
+      Promise.all(descriptions).then(descriptions => showMovies(descriptions));
     });
 }
 
 getMovies();
+
+function search(e) {
+  let movie = movieInput.value;
+  if (e.key === 'Enter' && movie !== '') {
+    getMovies(movie);
+    movieInput.value = '';
+  }
+}
