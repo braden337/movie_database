@@ -7,6 +7,10 @@
     "start": "parcel src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "staticFiles": {
+    "staticPath": "public",
+    "watcherGlob": "**"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/erinringland/movie_database.git"
@@ -18,6 +22,7 @@
   },
   "homepage": "https://github.com/erinringland/movie_database#readme",
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.5.0"
   }
 }
