@@ -1,8 +1,8 @@
-:root{
-  --background: #351E29;
-  --accent: #DDFFF7;
-  --border: #CC2936;
-  --logo: #EBBAB9;
+:root {
+  --background: #351e29;
+  --accent: #ddfff7;
+  --border: #cc2936;
+  --logo: #ebbab9;
 }
 
 * {
@@ -20,26 +20,26 @@ body {
   padding: 1rem;
 }
 
-header{
+header {
   display: flex;
   justify-content: space-between;
   padding: 40px;
   flex-direction: column;
 }
 
-header div{
+header div {
   flex-grow: 1;
   text-align: center;
 }
 
-h1{
+h1 {
   color: var(--logo);
   letter-spacing: -4px;
   text-align: center;
   padding-bottom: 1rem;
 }
 
-input{
+input {
   font-size: 1rem;
   padding: 10px 30px;
   max-width: 400px;
@@ -63,7 +63,7 @@ ul li {
 }
 
 li:hover .info {
-  opacity: 100%;
+  opacity: 1;
 }
 
 li:hover img {
@@ -108,10 +108,10 @@ li img {
 }
 
 @media (min-width: 700px) {
-  header{
+  header {
     flex-direction: row;
   }
-  h1{
+  h1 {
     padding-bottom: 0rem;
   }
   ul {
