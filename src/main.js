@@ -1,16 +1,15 @@
 const moviesList = document.getElementById('movies');
 const movieInput = document.getElementById('search');
 
-const testing_search = '/star_wars.json';
-const testing_movie = '/new_hope.json';
+// const testing_search = '/star_wars.json';
+// const testing_movie = '/new_hope.json';
 
-// const testing_search = null;
-// const testing_movie = null;
+const testing_search = null;
+const testing_movie = null;
 
 movieInput.addEventListener('keyup', search);
 
 function showMovies(movies) {
-  console.log(movies);
   moviesList.innerHTML = movies
     .map(function (movie) {
       return `<li>
@@ -26,7 +25,7 @@ function showMovies(movies) {
 }
 
 function getURL(name, value) {
-  let url = new URL('http://www.omdbapi.com');
+  let url = new URL('https://www.omdbapi.com');
   let params = new URLSearchParams();
   params.append('apikey', 'ae7826ed');
   params.append(name, value);
@@ -41,7 +40,6 @@ function getMovies(search = 'star wars') {
     .then(movies => {
       let descriptions = movies.Search.map(movie => movie.imdbID).map(id => {
         let url = getURL('i', id);
-        console.log(url);
         return fetch(testing_movie || url).then(response => response.json());
       });
       Promise.all(descriptions).then(descriptions => showMovies(descriptions));
