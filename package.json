@@ -1,0 +1,23 @@
+{
+  "name": "movie-database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erinringland/movie_database.git"
+  },
+  "author": "erin + braden",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erinringland/movie_database/issues"
+  },
+  "homepage": "https://github.com/erinringland/movie_database#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
