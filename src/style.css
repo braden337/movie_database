@@ -6,6 +6,7 @@
 }
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -27,19 +28,21 @@ header {
   flex-direction: column;
 }
 
-header div {
-  flex-grow: 1;
-  text-align: center;
-}
 
-h1 {
+header h1 {
   color: var(--logo);
   letter-spacing: -4px;
   text-align: center;
   padding-bottom: 1rem;
 }
 
-input {
+
+header div {
+  flex-grow: 1;
+  text-align: center;
+}
+
+header div input {
   font-size: 1rem;
   padding: 10px 30px;
   max-width: 400px;
@@ -47,6 +50,7 @@ input {
   color: var(--background);
   background: var(--accent);
   border: 2px var(--border) solid;
+  outline: none;
 }
 
 ul {
@@ -62,15 +66,15 @@ ul li {
   position: relative;
 }
 
-li:hover .info {
+ul li:hover .info {
   opacity: 1;
 }
 
-li:hover img {
+ul li:hover img {
   transform: scale(1);
 }
 
-li img {
+ul li img {
   width: 100%;
   object-fit: cover;
   transform: scale(0.9);
@@ -115,11 +119,18 @@ li img {
     padding-bottom: 0rem;
   }
   ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (min-width: 900px) {
+  ul {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   ul {
     grid-template-columns: repeat(5, 1fr);
   }

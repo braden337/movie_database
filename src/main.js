@@ -1,56 +1,55 @@
+const TESTING = false;
+
 const moviesList = document.getElementById('movies');
 const movieInput = document.getElementById('search');
 
-// const testing_search = '/star_wars.json';
-// const testing_movie = '/new_hope.json';
-
-const testing_search = null;
-const testing_movie = null;
+const omdbURL = new URL('https://www.omdbapi.com');
+const params = new URLSearchParams();
+params.append('apikey', 'ae7826ed');
 
 movieInput.addEventListener('keyup', search);
+getMovies();
 
 function showMovies(movies) {
   moviesList.innerHTML = movies
-    .map(function (movie) {
-      return `<li>
+    .map(
+      movie => `<li>
       <img src="${movie.Poster}">
       <div class="info">
         <div class="title">${movie.Title}</div>
         <div class="rating">${movie.Ratings[0].Value}</div>
         <div class="plot">${movie.Plot}</div>
       </div>
-      </li>`;
-    })
+      </li>`
+    )
     .join('');
 }
 
-function getURL(name, value) {
-  let url = new URL('https://www.omdbapi.com');
-  let params = new URLSearchParams();
-  params.append('apikey', 'ae7826ed');
+function getUrlWithParam(name, value) {
   params.append(name, value);
-  url.search = params;
-  return url.href;
+  omdbURL.search = params;
+  let url = omdbURL.href;
+  params.delete(name);
+  return url;
 }
 
 function getMovies(search = 'star wars') {
-  let url = getURL('s', search);
-  fetch(testing_search || url)
+  fetch(TESTING ? '/star_wars.json' : getUrlWithParam('s', search))
     .then(response => response.json())
-    .then(movies => {
-      let descriptions = movies.Search.map(movie => movie.imdbID).map(id => {
-        let url = getURL('i', id);
-        return fetch(testing_movie || url).then(response => response.json());
-      });
-      Promise.all(descriptions).then(descriptions => showMovies(descriptions));
-    });
+    .then(result =>
+      Promise.all(
+        result.Search.map(movie => movie.imdbID).map(id =>
+          fetch(
+            TESTING ? '/new_hope.json' : getUrlWithParam('i', id)
+          ).then(response => response.json())
+        )
+      ).then(showMovies)
+    );
 }
 
-getMovies();
-
-function search(e) {
+function search(event) {
   let movie = movieInput.value;
-  if (e.key === 'Enter' && movie !== '') {
+  if (event.key === 'Enter' && movie !== '') {
     getMovies(movie);
     movieInput.value = '';
   }
